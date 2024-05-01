@@ -1,9 +1,16 @@
 import React from "react"
+import GenreList from "../Components/GenreList"
+
 
 function Home(){
   return (
-    <div>
-    <h1>header</h1>
+    <div className="grid grid-cols-4">
+    <div className="bg-red-300 hidden md:block ">
+      <GenreList />
+    </div>
+    <div className="bg-blue-300 col-span-4 md: col-span-3">
+      <h1>game list</h1>
+    </div>
     </div>
     )
 }
