@@ -1,18 +1,43 @@
-import  React from "react";
-import Logo from "../assets/images/logo.png"
-import { FaSearch } from "react-icons"
+import React, { useState, useContext } from "react";
+import Logo from "../assets/images/logo.png";
+import { FaSearch, FaMoon } from "react-icons/fa";
+import { MdSunny } from "react-icons/md";
+import { ThemeContext } from "../Context/ThemeContext";
 
-function Header(){
+function Header() {
+  const [toggle, setToggle] = useState(false);
+  const { theme, setTheme } = useContext(ThemeContext);
+
   return (
     <>
-    <div>
-      <img src={logo} className='w-10 h-5'/>
-    </div>
-    <div>
-      <FaSearch />
-      <input className="rounded"/>
-    </div>
+      <div className="flex items-center p-3">
+        <img src={Logo} className="w-16 h-16" alt="Logo" />
+        <div className="flex p-3 bg-slate-300 rounded-full items-center mx-3 w-full lg:w-70">
+          <FaSearch />
+          <input placeholder="search game" className="bg-transparent outline-none px-3" />
+        </div>
+        <div className="pr-2">
+          {theme == "light" ? (
+            <MdSunny
+              className="text-4xl bg-slate-200 rounded-full p-2 cursor-pointer"
+              onClick={() => {
+                setTheme("dark");
+                localStorage.setItem("theme", "dark");
+              }}
+            />
+          ) : (
+            <FaMoon
+              className="text-4xl bg-slate-200 rounded-full p-2 cursor-pointer"
+              onClick={() => {
+                setTheme("light");
+                localStorage.setItem("theme", "light");
+              }}
+            />
+          )}
+        </div>
+      </div>
     </>
-    )
+  );
 }
-export default Header
+
+export default Header;
