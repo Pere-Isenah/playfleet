@@ -4,8 +4,8 @@ import GenreList from "../Components/GenreList"
 
 function Home(){
   return (
-    <div className="grid grid-cols-4">
-    <div className="bg-red-300 hidden md:block ">
+    <div className="grid grid-cols-4 p-4">
+    <div className=" hidden md:block ">
       <GenreList />
     </div>
     <div className="bg-blue-300 col-span-4 md:col-span-3">
