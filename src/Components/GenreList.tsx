@@ -19,11 +19,11 @@ const GenreList = () => {
   }, []);
 
   return (
-    <div>
+    <div className="p-3">
       <h1 className='text-2xl font-bold'>Genre</h1>
       <div >
         {genreList.map((item, index) => (
-          <div key={index} className='flex gap-2items-center bg-slate-300 rounded-xl p-3 mb-2 dark:gray-700'> {/* Add a unique key for each item */}
+          <div key={index} className='flex gap-2 items-center bg-slate-300 rounded-xl p-3 mb-2 dark:gray-700'> {/* Add a unique key for each item */}
             <img className="h-24 w-28 object-cover rounded-xl"src={item.image_background} alt={item.name} />
             <h2>{item.name}</h2>
             {/* Additional content here */}
