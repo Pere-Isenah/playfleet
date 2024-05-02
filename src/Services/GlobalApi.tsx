@@ -1,10 +1,17 @@
-import axios from "axios"
-const key = import.meta.env.VITE_API_KEY
+import axios from "axios";
 
-const axiosCreate = axios.create({baseURL:"https://api.rawg.io/api"})
+const key = import.meta.env.VITE_API_KEY;
+const axiosCreate = axios.create({baseURL: "https://api.rawg.io/api"});
 
-const getGenreList = axiosCreate.get("/genres?key=" +key)
+const getGenreList = async () => {
+  try {
+    const response = await axiosCreate.get("/genres?key=" + key);
+    return response.data.results; // Return the data from the response
+  } catch (error) {
+    throw error; // Re-throw the error to handle it in the component
+  }
+};
 
 export default {
   getGenreList
-}
+};

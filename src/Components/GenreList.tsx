@@ -1,22 +1,24 @@
-import React, {useEffect} from 'react'
-import GlobalApi from "../Services/GlobalApi"
-
-
-useEffect(()=> {
-  getGenreList();
-},[])
+import React, { useEffect } from 'react';
+import GlobalApi from "../Services/GlobalApi";
 
 const GenreList = () => {
-  const getGenreList= () =>{
-    GlobalApi.getGenreList.then((resp)=>{
-      console.log(resp);
-    })
-  }
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const resp = await GlobalApi.getGenreList();
+        console.log(resp);
+      } catch (error) {
+        console.error("Error fetching genre list:", error);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <div>
-    genre list
+      genre list
     </div>
-  )
-}
+  );
+};
 
-export default GenreList
+export default GenreList;

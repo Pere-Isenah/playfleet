@@ -8,7 +8,7 @@ function Home(){
     <div className="bg-red-300 hidden md:block ">
       <GenreList />
     </div>
-    <div className="bg-blue-300 col-span-4 md: col-span-3">
+    <div className="bg-blue-300 col-span-4 md:col-span-3">
       <h1>game list</h1>
     </div>
     </div>
