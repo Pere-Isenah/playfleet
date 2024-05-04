@@ -24,7 +24,7 @@ const GenreList = () => {
       <h1 className='text-2xl font-bold mb-4  border-b-2 border-slate-300 dark:text-white border-b-2 border-slate-200'>Genre</h1>
       <div >
         {genreList.map((item, index) => (
-          <div key={index} className={`flex gap-2 items-center bg-slate-300 rounded-xl p-2 mb-4 text-black dark:bg-gray-700 text-white hover:scale-110 transition-all duration-300 cursor-pointer {active==index? "bg-slate-300 dark:bg-gray-700":,null }`} onClick={()=>setActive(index)}>
+          <div key={index} className={`flex gap-2 items-center rounded-xl p-2 mb-4  text-black dark:text-white hover:scale-110 transition-all duration-300 cursor-pointer ${active==index? "bg-slate-300 dark:bg-gray-700":null }`} onClick={()=>setActive(index)}>
             <img className="h-20 w-20 object-cover rounded-xl"src={item.image_background} alt={item.name} />
             <div className="flex items-center">
             <h2 className="font-bold text-lg sm:text-base">{item.name}</h2>
@@ -34,6 +34,7 @@ const GenreList = () => {
       </div>
     </div>
   );
+  console.log(active)
 };
 
 export default GenreList;
