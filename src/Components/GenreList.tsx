@@ -11,7 +11,7 @@ const GenreList = () => {
       try {
         const resp = await GlobalApi.getGenreList();
         setGenreList(resp); 
-        console.log(resp)// Assuming resp has a "results" property containing the list of genres
+        // Assuming resp has a "results" property containing the list of genres
       } catch (error) {
         console.error("Error fetching genre list:", error);
       }
