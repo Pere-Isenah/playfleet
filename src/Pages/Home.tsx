@@ -4,7 +4,7 @@ import GenreList from "../Components/GenreList"
 
 function Home(){
   return (
-    <div className="grid grid-cols-4 p-4">
+    <div className="grid grid-cols-4 px-2 py-3 ">
     <div className=" hidden md:block ">
       <GenreList />
     </div>

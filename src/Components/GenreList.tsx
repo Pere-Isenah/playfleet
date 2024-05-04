@@ -4,6 +4,7 @@ import { ImInsertTemplate } from 'react-icons/im';
 
 const GenreList = () => {
   const [genreList, setGenreList] = useState([]);
+  const [active,setActive]=useState()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,14 +20,15 @@ const GenreList = () => {
   }, []);
 
   return (
-    <div className="p-3">
-      <h1 className='text-2xl font-bold'>Genre</h1>
+    <div className="p-3 pr-4">
+      <h1 className='text-2xl font-bold mb-4  border-b-2 border-slate-300 dark:text-white border-b-2 border-slate-200'>Genre</h1>
       <div >
         {genreList.map((item, index) => (
-          <div key={index} className='flex gap-2 items-center bg-slate-300 rounded-xl p-3 mb-2 dark:gray-700'> {/* Add a unique key for each item */}
-            <img className="h-24 w-28 object-cover rounded-xl"src={item.image_background} alt={item.name} />
-            <h2>{item.name}</h2>
-            {/* Additional content here */}
+          <div key={index} className={`flex gap-2 items-center bg-slate-300 rounded-xl p-2 mb-4 text-black dark:bg-gray-700 text-white hover:scale-110 transition-all duration-300 cursor-pointer {active==index? "bg-slate-300 dark:bg-gray-700":,null }`} onClick={()=>setActive(index)}>
+            <img className="h-20 w-20 object-cover rounded-xl"src={item.image_background} alt={item.name} />
+            <div className="flex items-center">
+            <h2 className="font-bold text-lg sm:text-base">{item.name}</h2>
+            </div>
           </div>
         ))}
       </div>
