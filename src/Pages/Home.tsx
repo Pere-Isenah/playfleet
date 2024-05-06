@@ -27,7 +27,7 @@ function Home(){
 
 
   return (
-    <div className="grid grid-cols-4 px-2 py-3">
+    <div className="grid grid-cols-[1fr_2fr_2fr_2fr] px-2 py-3">
     <div className=" hidden md:block">
       <GenreList/>
     </div>
