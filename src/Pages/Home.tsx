@@ -2,6 +2,8 @@ import React ,{useEffect,useState} from "react"
 import GenreList from "../Components/GenreList";
 import GlobalApi from "../Services/GlobalApi";
 import GameBanner from "../Components/GameBanner";
+import PopularGame from "../Components/PopularGame";
+
 
 function Home(){
 
@@ -12,7 +14,7 @@ function Home(){
     const fetchData = async () => {
       try {
         const resp = await GlobalApi.getGameList();
-        console.log(resp)
+        // console.log(resp)
         setGameList(resp);
         // Assuming resp has a "results" property containing the list of genres
       } catch (error) {
@@ -31,6 +33,9 @@ function Home(){
     </div>
     <div className="col-span-4 md:col-span-3">
       <GameBanner banner={allGameList[0]}/>
+      <div>
+      <PopularGame gameList={allGameList}/>
+      </div>
     </div>
     </div>
     )
