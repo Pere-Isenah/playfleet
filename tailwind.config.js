@@ -6,7 +6,12 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    fontFamily:{
+        game:["Press Start 2P","sans-serif"],
+        free:["Freeman","sans-serif"],
+      },
+    extend: {
+    },
   },
   plugins: [],
 }

@@ -20,7 +20,16 @@ const getGameList =async () => {
     throw error; // Re-throw the error to handle it in the component
   }
 };
+const getGameListByGenre = async (id) => {
+  try {
+    const response = await axiosCreate.get("/games?key=" + key + "&genres=" + id);
+    console.log(response.data.results); // Log the data from the response
+    return response.data.results; // Return the data from the response
+  } catch (error) {
+    throw error; // Re-throw the error to handle it in the component
+  }
+};
 
 export default {
-  getGenreList, getGameList
+  getGenreList, getGameList, getGameListByGenre
 };
