@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react'
 import './App.css'
 import Header from "./Components/Header.tsx"
 import Home from "./Pages/Home.tsx"
-import {ThemeContext} from "./Context/ThemeContext"
+import {GameProvider} from "./Context/GameContext"
+import { ThemeContext } from './Context/ThemeContext'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -13,10 +14,13 @@ useEffect(()=>{
 
 },[])
   return (
-    <ThemeContext.Provider value={{theme,setTheme}}>
+  <ThemeContext.Provider value={{theme,setTheme}}>
+   
      <div className={`${theme} ${theme=='dark'?'bg-[#121212]':null}`}>
+      <GameProvider>
         <Header />
         <Home />
+         </GameProvider>
       </div>
       </ThemeContext.Provider>
   )
