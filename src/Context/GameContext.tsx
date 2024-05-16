@@ -8,6 +8,7 @@ export const GameProvider= ({children})=>{
   const [gameListByGenreId, setGameListByGenreId] =useState([]);
  const [gameHeaderByGenreName, setGameHeaderByGenreName] =useState("Popular");
  const [genreId, setGenreId]=useState()
+ const [searchInput, setSearchInput] = useState("")
  return(
    <GameContext.Provider value={{
      genreList,
@@ -19,7 +20,9 @@ export const GameProvider= ({children})=>{
      gameHeaderByGenreName,
      setGameHeaderByGenreName,
      genreId,
-     setGenreId
+     setGenreId,
+     searchInput,
+     setSearchInput,
    }}>
       {children}
       </GameContext.Provider>
