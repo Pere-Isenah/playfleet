@@ -13,9 +13,10 @@ import GameListSkeleton from "../Skeleton/GameListSkeleton";
 function Home() {
   const  {genreId, gameHeaderByGenreName, allGameList} = useContext(GameContext)
   
-  const {isLoading: isLoadingGamesByGenreId, isError: isErrorGamesByGenreId, data: gamesByGenreId } = useQuery("gamesByGenreId", getGamesByGenreId(genreId), {
-    staleTime: 24 * 60 * 60 * 1000,
-  })
+  const {isLoading: isLoadingGamesByGenreId, isError: isErrorGamesByGenreId, data: gamesByGenreId } = useQuery("gamesByGenreId", () => getGamesByGenreId(genreId), {
+  staleTime: 24 * 60 * 60 * 1000,
+})
+
   if (isLoadingGamesByGenreId) {
     return <GameListSkeleton />; // Render loading indicator while data is loading
   }

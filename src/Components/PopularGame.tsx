@@ -10,8 +10,8 @@ function PopularGame() {
     staleTime: 24 * 60 * 60 * 1000,
   });
   
-  const [allGameList,
-     setGameList,]= useContext(GameContext)
+  const {allGameList,
+     setGameList}= useContext(GameContext)
      
      setGameList(popularGames)
   

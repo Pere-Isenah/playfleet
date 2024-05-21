@@ -5,7 +5,7 @@ import { useQuery } from 'react-query';
 const GameList= ({selectedGenre, selectedGenreName}) =>{
   
   useEffect(()=>{
-  console.log(selectedGenreName)})
+  console.log("genre:", selectedGenre)})
   
   return (
     <div className="p-4">
