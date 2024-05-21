@@ -1,37 +1,48 @@
 import axios from "axios";
 
-const key = import.meta.env.VITE_API_KEY;
-const axiosCreate = axios.create({baseURL: "https://api.rawg.io/api"});
+const apiKey = import.meta.env.VITE_API_KEY;
 
-const getGenreList = async () => {
-  try {
-    const response = await axiosCreate.get("/genres?key=" + key);
-    console.log("genre:",response.data.results)
-    return response.data.results; 
-  } catch (error) {
-    throw error; // Re-throw the error to handle it in the component
+const axiosInstance = axios.create({
+  baseURL: "https://api.rawg.io/api",
+  params: {
+    key: apiKey
   }
-};
-const getGameList =async () => {
+});
+    
+// Fetch genre list
+export const getGenreList = async () => {
   try {
-    const response = await axiosCreate.get("/games?key=" + key +"&page_size=40");
-    console.log("api:",response.data.results)
-    return response.data.results; 
-    // Return the data from the response
+    const response = await axiosInstance.get('/genres');
+    return response.data.results;
   } catch (error) {
-    throw error; // Re-throw the error to handle it in the component
-  }
-};
-const getGameListByGenre = async (id) => {
-  try {
-    const response = await axiosCreate.get("/games?key=" + key + "&genres=" + id);
-    console.log("genre:",response.data.results); // Log the data from the response
-    return response.data.results; // Return the data from the response
-  } catch (error) {
-    throw error; // Re-throw the error to handle it in the component
+    throw new Error(`Error fetching genre list: ${error.message}`);
   }
 };
 
-export default {
-  getGenreList, getGameList, getGameListByGenre
+// Fetch game list
+export const getGameList = async () => {
+  try {
+    const response = await axiosInstance.get('/games', {
+      params: {
+        page_size: 40
+      }
+    });
+    return response.data.results;
+  } catch (error) {
+    throw new Error(`Error fetching game list: ${error.message}`);
+  }
+};
+
+// Fetch games by genre ID
+export const getGamesByGenreId = async (genreId) => {
+  try {
+    const response = await axiosInstance.get('/games', {
+      params: {
+        genres: genreId
+      }
+    });
+    return response.data.results;
+  } catch (error) {
+    throw new Error(`Error fetching games by genre ID: ${error.message}`);
+  }
 };

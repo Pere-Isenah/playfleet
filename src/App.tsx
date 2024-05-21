@@ -28,10 +28,10 @@ useEffect(()=>{
      <div className={`${theme} ${theme=='dark'?'bg-[#121212]':null}`}>
       <GameProvider>
       <ErrorBoundary>
-        <Header />
         <ClerkProvider publishableKey={PUBLISHABLE_KEY} appearance={{
         baseTheme: dark
       }} >
+         <Header />
         <Home />
         </ClerkProvider>
         </ErrorBoundary>

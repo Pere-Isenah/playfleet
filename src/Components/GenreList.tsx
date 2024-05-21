@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react';
-import GlobalApi from "../Services/GlobalApi";
-import { GameContext } from "../Context/GameContext"; // Correctly import GameContext
+import {getGenreList} from "../Services/GlobalApi";
+import { GameContext } from "../Context/GameContext"; 
+import { useQuery } from 'react-query';
+import GenreSkeleton from "../Skeleton/GenreSkeleton";
 
 const GenreList = () => {
   const {
@@ -8,22 +10,23 @@ const GenreList = () => {
     setGameListByGenreId,
     setGameHeaderByGenreName,
     setGenreId,
-    genreList
   } = useContext(GameContext); 
 
   const [active, setActive] = useState();
+  
+  const {isLoading: isLoadingGenreList, data: genreList, isError: isErrorGenreList} =useQuery("genreList", getGenreList, {
+    staleTime: 24 * 60 * 60 * 1000, 
+  })
+  
+if (isLoadingGenreList) {
+    return <GenreSkeleton />; // Render loading indicator while data is loading
+  }
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const resp = await GlobalApi.getGenreList();
-        setGenreList(resp);
-      } catch (error) {
-        console.error("Error fetching genre list:", error);
-      }
-    };
-    fetchData();
-  }, []);
+  if (isErrorGenreList) {
+    return <div>Error fetching genre list!</div>; // Render error message if an error occurs
+  }
+  
+
 
   return (
     <div className="p-3 pr-4">

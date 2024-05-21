@@ -1,8 +1,9 @@
-import React, {useEffect} from 'react'
-import GlobalApi from '../Services/GlobalApi'
+import React, {useEffect,useContext} from 'react'
+import { useQuery } from 'react-query';
 
 
 const GameList= ({selectedGenre, selectedGenreName}) =>{
+  
   useEffect(()=>{
   console.log(selectedGenreName)})
   
