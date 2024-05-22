@@ -1,9 +1,14 @@
 import React, { useState, useContext, useMemo, useEffect } from 'react';
 import { GameContext } from "../Context/GameContext";
+import { useDebounce } from '../utils/useDebounce';
 
 const Search = () => {
   const { allGameList, searchInput } = useContext(GameContext);
   const [searchActive, setSearchActive] = useState("");
+  const debouncedSearchInput = useDebounce(searchInput, 500);
+
+  // TODO: Implement API call
+  // apiCall(debouncedSearchInput);
 
   const filteredSearch = useMemo(() => {
     if (!allGameList || !searchInput) {
@@ -15,6 +20,7 @@ const Search = () => {
   useEffect(() => {
     setSearchActive(searchInput.length === 0 ? "hidden" : "");
   }, [searchInput]);
+
 
   console.log('Filtered Search Results:', filteredSearch);
   console.log('search input:', searchInput);
