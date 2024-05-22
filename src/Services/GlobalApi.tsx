@@ -41,6 +41,7 @@ export const getGamesByGenreId = async (genreId) => {
         genres: genreId
       }
     });
+    console.log("results:", response.data.results)
     return response.data.results;
   } catch (error) {
     throw new Error(`Error fetching games by genre ID: ${error.message}`);

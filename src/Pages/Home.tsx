@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import GenreList from "../Components/GenreList";
 import { GameContext } from "../Context/GameContext";
 import { useQuery } from 'react-query';
@@ -12,29 +12,21 @@ import GameListSkeleton from "../Skeleton/GameListSkeleton";
 
 function Home() {
   const  {genreId, gameHeaderByGenreName, allGameList} = useContext(GameContext)
+  const gamesByGenreId = getGamesByGenreId(genreId)
   
-  const {isLoading: isLoadingGamesByGenreId, isError: isErrorGamesByGenreId, data: gamesByGenreId } = useQuery("gamesByGenreId", () => getGamesByGenreId(genreId), {
-  staleTime: 24 * 60 * 60 * 1000,
-})
+  useEffect(() => {
+    if (genreId) {
+      console.log("genreId:", genreId);
+      getGamesByGenreId(genreId);
+    }
+  }, [genreId]);
+  
+  console.log("test:", gamesByGenreId)
 
-  if (isLoadingGamesByGenreId) {
-    return <GameListSkeleton />; // Render loading indicator while data is loading
-  }
+  // Conditionally execute useQuery based on genreId
+  
 
-  if (isErrorGamesByGenreId) {
-    return <div>Error fetching game list!</div>; // Render error message if an error occurs
-  }
 
-  // Example usage of useQuery hook
-  {/*const { data: gameList, isLoading, isError } = useQuery('gameList', () => getGameList(genreId));*/}
-
-  {/*if (isLoading) {
-    return <div>Loading...</div>;
-  }*/}
-
-  {/*if (isError) {
-    return <div>Error fetching game list!</div>;
-  }*/}
 
   return (
     <div className="grid grid-cols-4 px-2 py-3">
