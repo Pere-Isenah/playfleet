@@ -28,8 +28,8 @@ export const getGameList = async ({ pageParam = 1 }) => {
         page_size: 40,
       },
     });
-    console.log(response.data)
-    return response.data; // This should be returned here
+    console.log(response.data.results)
+    return response.data.results; // This should be returned here
   } catch (error) {
     throw new Error(`Error fetching game list: ${error.message}`);
   }
