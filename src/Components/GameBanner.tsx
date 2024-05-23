@@ -25,6 +25,10 @@ function GameBanner() {
   if (isErrorGameList) {
     return <div>Error fetching game list!</div>; // Render error message if an error occurs
   }
+  // Inside the GameBanner component
+if (!Array.isArray(gameList)) {
+  console.log("not an array")
+}
   return (
     <>
       {gameList.slice(0, 3).map((game, index) => (

@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios";
-import { useQuery } from "react-query";
+import { useQuery, useInfiniteQuery } from "react-query";
 
 const apiKey = import.meta.env.VITE_API_KEY;
 
@@ -20,18 +20,40 @@ export const getGenreList = async () => {
   }
 };
 
-// Fetch game list
-export const getGameList = async () => {
+export const getGameList = async ({ pageParam = 1 }) => {
   try {
     const response = await axiosInstance.get("/games", {
       params: {
+        page: pageParam,
         page_size: 40,
       },
     });
-    return response.data.results;
+    console.log(response.data)
+    return response.data; // This should be returned here
   } catch (error) {
     throw new Error(`Error fetching game list: ${error.message}`);
   }
+};
+
+export const useGameList = () => {
+  return useInfiniteQuery(["games"], ({ pageParam = 1 }) => getGameList({ pageParam }), {
+    getNextPageParam: (lastPage) => {
+      const nextPage = lastPage.next;
+      return nextPage ? nextPage : undefined;
+    },
+    staleTime: 1000 * 60 * 5, // 5 minutes
+    refetchInterval: false,
+    onError: (error) => {
+      console.error("Error fetching game list:", error);
+    },
+    onSuccess: (data) => {
+      // toast notification
+      console.log("Data fetched successfully:", data);
+    },
+    getFetchMore: (lastGroup, allGroups) => {
+      return lastGroup.hasNextPage ? lastGroup.nextPage : false;
+    },
+  });
 };
 
 // Fetch games by genre ID
