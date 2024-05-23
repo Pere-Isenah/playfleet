@@ -55,7 +55,7 @@ function PopularGame() {
         {popularGames.pages.map((page, index) => (
           <React.Fragment key={index}>
             {page.map((game, index) => (
-              index < 4 && (
+              
                 <div key={index} className='h-full pb-14 p-4 rounded-lg bg-slate-400 dark:bg-gray-700 hover:scale-110 transition-all duration-300 ease-in-out cursor-pointer'>
                   <img width={1080} className=" h-[80%] w-full rounded-t-lg object-cover" src={game.background_image} alt={game.name}/>
                   <h2 className="font-bold text-lg text-center p-3 md:text-base  dark:text-white">{game.name}</h2>
@@ -65,8 +65,8 @@ function PopularGame() {
                     <p className="dark:text-white text-xs"><span className="font-bold dark:text-white inline-block text-sm">Suggestion:</span> {game.suggestions_count}</p>
                   </div>
                 </div>
-              )
-            ))}
+        )
+            )}
           </React.Fragment>
         ))}
       </div>
