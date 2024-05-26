@@ -6,7 +6,7 @@ export const GameProvider= ({children})=>{
   const [genreList, setGenreList] = useState([]);
   const [allGameList, setGameList] = useState([]);
   const [gameListByGenreId, setGameListByGenreId] =useState([]);
- const [gameHeaderByGenreName, setGameHeaderByGenreName] =useState("Popular");
+ const [gameHeaderByGenreName, setGameHeaderByGenreName] =useState("");
  const [genreId, setGenreId]=useState()
  const [searchInput, setSearchInput] = useState("")
  return(

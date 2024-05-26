@@ -44,10 +44,7 @@ function Home() {
         ) : gamesByGenreId.isError ? (
           "Error fetching games by genre ID"
         ) : (
-          <GameList
-            selectedGenre={gamesByGenreId.data}
-            selectedGenreName={gameHeaderByGenreName}
-          />
+          <GameList/>
         )}
       </div>
     </div>
