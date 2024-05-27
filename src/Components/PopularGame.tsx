@@ -39,7 +39,6 @@ function PopularGame() {
               <p className="dark:text-white text-xs"><span className="font-bold dark:text-white inline-block text-sm">Suggestion:</span> {game.suggestions_count}</p>
             </div>
           </div>)
->>>>>>> 7582db6 (added platform icon and infinite load to gamelist)
         ))}
       </div>
     </div>
