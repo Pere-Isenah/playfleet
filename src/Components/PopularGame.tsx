@@ -2,18 +2,13 @@ import React, { useEffect,useContext } from 'react';
 import { getGameList } from "../Services/GlobalApi";
 import { useQuery } from 'react-query';
 import PopularGameSkeleton from "../Skeleton/PopularGameSkeleton";
-import { GameContext } from "../Context/GameContext";
+
 
 function PopularGame() {
     
   const { isLoading: isLoadingPopularGame, data: popularGames, isError: isErrorPopularGame } = useQuery("gameList", getGameList, {
     staleTime: 24 * 60 * 60 * 1000,
   });
-  
-  const {allGameList,
-     setGameList}= useContext(GameContext)
-     
-     setGameList(popularGames)
   
   if (isLoadingPopularGame || !popularGames) {
     return <PopularGameSkeleton />; // Render loading indicator while data is loading
