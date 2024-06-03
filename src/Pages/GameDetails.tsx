@@ -15,7 +15,6 @@ export async function loader({ params }) {
 const GameDetails = () => {
   // Retrieve game details from loader data
   const { game } = useLoaderData();
-  console.log("loader:",game)
   const  [reveal,setReveal] = useState("line-clamp-6");
   const [btnName,setBtnName] =useState("Read More")
   const [btncolor, setBtncolor] = useState("bg-blue-400")

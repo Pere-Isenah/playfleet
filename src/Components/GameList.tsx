@@ -6,7 +6,7 @@ import { useGamesByGenreId,getGameDetails } from  "../Services/GlobalApi";
 import { GameContext } from "../Context/GameContext";
 import { ImSpinner4 } from "react-icons/im";
 import PlatformIcon from "./PlatformIcon";
-import GameDetails from "./GameDetails"
+
 
 
 
@@ -15,11 +15,7 @@ const GameList = ({ selectedGenre, selectedGenreName }) => {
   
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useGamesByGenreId({ genreId: genreId });
   
-  const tt = getGameDetails(13668);
-
-if (tt.isSuccess) {
-    console.log("Details:", tt.data);
-}    
+ 
   
 
   if (!data || !data.pages || !data.pages.length) {
@@ -60,7 +56,7 @@ if (tt.isSuccess) {
       <div ref={ref} className="mt-3 flex gap-1">
         {isFetchingNextPage && (
           <>
-            <ImSpinner4  class="animate-spin h-8 w-8 mr-3 dark:text-white" viewBox="0 0 34 34" />
+            <ImSpinner4  className="animate-spin h-8 w-8 mr-3 dark:text-white" viewBox="0 0 34 34" />
             <span className="text-xl dark:text-white">Loading.....</span>
           </>
         )}

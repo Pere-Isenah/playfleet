@@ -1,4 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
+import { useMatch } from "react-router-dom";
 import GenreList from "../Components/GenreList";
 import { GameContext } from "../Context/GameContext";
 import { useQuery } from "react-query";
@@ -10,13 +11,13 @@ import GameList from "../Components/GameList";
 import GameListSkeleton from "../Skeleton/GameListSkeleton";
 import { useGamesByGenreId } from "../Services/GlobalApi";
 import Search from "../Components/Search";
+import FilterByPlatform from "../Components/FilterByPlatform";
+import PlatFormGames from "../Components/PlatFormGames";
 
 function Home() {
-  const { genreId, gameHeaderByGenreName, allGameList } =
-    useContext(GameContext);
-
-  // Fetch games by genre ID
+  const { genreId } = useContext(GameContext);
   const gamesByGenreId = useGamesByGenreId({ genreId: genreId });
+  const isPlatformRoute = useMatch("/platform/:platformId");
 
   return (
     <div className="grid grid-cols-4 px-2 py-3">
@@ -25,26 +26,31 @@ function Home() {
       </div>
 
       <div className="col-span-4 md:col-span-3">
-        <div className="flex justify-end gap-2 pr-3">
-          <SignedIn>
-            <UserButton />
-          </SignedIn>
-          <SignInButton className="bg-slate-500 p-1 px-2 dark:text-white rounded-lg" />
-          <FaCartPlus className="text-2xl dark:text-white" />
+        <div>
+          <FilterByPlatform />
+          <div className="flex justify-end gap-2 pr-3">
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
+            <SignInButton className="bg-slate-500 p-1 px-2 dark:text-white rounded-lg" />
+            <FaCartPlus className="text-2xl dark:text-white" />
+          </div>
         </div>
         <Search />
-        <div>
-          <GameBanner />
-        </div>
-        <div>
-          <PopularGame />
-        </div>
-        {gamesByGenreId.isLoading ? (
-          <GameListSkeleton />
-        ) : gamesByGenreId.isError ? (
-          "Error fetching games by genre ID"
+        {isPlatformRoute ? (
+          <PlatFormGames />
         ) : (
-          <GameList/>
+          <>
+            <GameBanner />
+            <PopularGame />
+            {gamesByGenreId.isLoading ? (
+              <GameListSkeleton />
+            ) : gamesByGenreId.isError ? (
+              "Error fetching games by genre ID"
+            ) : (
+              <GameList />
+            )}
+          </>
         )}
       </div>
     </div>

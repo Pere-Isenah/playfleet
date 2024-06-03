@@ -1,11 +1,12 @@
 import React from 'react';
 import { useScreenshot } from "../Services/GlobalApi";
+import ScreenshotSkeleton from "../Skeleton/ScreenshotSkeleton"
 
 const Screenshots = ({ gameId }) => {
   const { data: screenshots, isLoading, isError } = useScreenshot({ gameId });
 
   if (isLoading) {
-    return <div>Loading...</div>; // Render a loading indicator while data is being fetched
+    return <ScreenshotSkeleton />
   }
 
   if (isError) {

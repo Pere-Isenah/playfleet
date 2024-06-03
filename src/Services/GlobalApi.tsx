@@ -156,3 +156,37 @@ export const useScreenshot = ({gameId}) => {
     }
   });
 };
+
+export const useFilterByPLatForm = ({ platformId }: { platformId: number | undefined }) => {
+  const queryParams = platformId ? "parent_platforms=" + platformId : "";
+  return useInfiniteQuery(["gamesByPlatform", platformId], ({ pageParam = 1 }) => {
+    return axiosInstance.get(`/games?${queryParams}`, {
+      params: {
+        page: pageParam,
+        page_size: 40,
+      },
+    }).then((res) => {
+      if (typeof res.data !== "object" && "length" in res.data) {
+        throw new Error("Invalid response");
+      }
+      console.log("Platform:", res.data);
+      const nextPage = res.data.next; // Assuming 'next' property indicates next page
+      console.log("Next Page:", nextPage);
+      return {
+        data: res.data.results,
+        nextPage: nextPage ? pageParam + 1 : null, // Set nextPage to null if there's no next page
+      };
+    });
+  }, {
+    getNextPageParam: (lastPage) => lastPage.nextPage,
+    staleTime: 1000 * 60 * 5, // 5 minutes
+    refetchInterval: false,
+    onError: (error) => {
+      console.error("Error fetching games by platform ID:", error);
+    },
+    onSuccess: (data) => {
+      // toast notification
+      console.log("Data fetched successfully:", data);
+    },
+  });
+};
