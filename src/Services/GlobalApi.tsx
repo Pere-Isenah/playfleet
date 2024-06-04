@@ -35,27 +35,41 @@ export const getGameList = async ({ pageParam }) => {
     throw new Error(`Error fetching game list: ${error.message}`);
   }
 };
-
 export const useGameList = () => {
-  return useInfiniteQuery(["games"], ({ pageParam = 2 }) => getGameList({ pageParam }), {
-    getNextPageParam: (lastPage) => {
-      const nextPage = lastPage.next;
-      return nextPage ? nextPage : undefined;
-    },
-    staleTime: 1000 * 60 * 5, // 5 minutes
-    refetchInterval: false,
-    onError: (error) => {
-      console.error("Error fetching game list:", error);
-    },
-    onSuccess: (data) => {
-      // toast notification
-      console.log("Data fetched successfully:", data);
-    },
-    getFetchMore: (lastGroup, allGroups) => {
-      return lastGroup.hasNextPage ? lastGroup.nextPage : false;
-    },
-  });
+  return useInfiniteQuery(
+    ["games"],
+    ({ pageParam = 2 }) => axiosInstance.get("/games", {
+      params: {
+        page: pageParam,
+        page_size: 40,
+      },
+    }).then((res) => {
+      if (typeof res.data !== "object" && "length" in res.data) {
+        throw new Error("Invalid response");
+      }
+      console.log("API Response:", res.data);
+      const nextPage = res.data.next; // Assuming 'next' property indicates next page
+      console.log("Next Page:", nextPage);
+      return {
+        data: res.data.results,
+        nextPage: nextPage ? pageParam + 1 : null, // Set nextPage to null if there's no next page
+      };
+    }),
+    {
+      getNextPageParam: (lastPage) => lastPage.nextPage,
+      staleTime: 1000 * 60 * 5, // 5 minutes
+      refetchInterval: false,
+      onError: (error) => {
+        console.error("Error fetching games by genre ID:", error);
+      },
+      onSuccess: (data) => {
+        // toast notification
+        console.log("Data fetched successfully:", data);
+      },
+    }
+  );
 };
+
 
 export const useGamesByGenreId = ({ genreId }: { genreId: number | undefined }) => {
   const queryParams = genreId ? "?genres=" + genreId : "";

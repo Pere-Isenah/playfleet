@@ -1,23 +1,19 @@
-import React, { useEffect, useContext } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { Link,useParams,useNavigate } from "react-router-dom";
+import React, { useEffect} from 'react';
+import { Link,useNavigate } from "react-router-dom";
 import { useInView } from 'react-intersection-observer';
-import { useGamesByGenreId,getGameDetails } from  "../Services/GlobalApi";
+import { useGameList } from  "../Services/GlobalApi";
 import { GameContext } from "../Context/GameContext";
 import { ImSpinner4 } from "react-icons/im";
 import PlatformIcon from "./PlatformIcon";
 import { FaArrowLeft } from "react-icons/fa";
 
 
-const GameList = ({ selectedGenre, selectedGenreName }) => {
-  const { gameHeaderByGenreName, allGameList } = useContext(GameContext);
-  const {genre,genreId} = useParams()
-  console.log("TT:", genreId)
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useGamesByGenreId({ genreId: genreId });
+const AllGameList = () => {
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useGameList();
   
   const navigate = useNavigate()
   const { ref, inView } = useInView();
-  
+  console.log("AllGame:",data)
  useEffect(() => {
     if (inView && hasNextPage) {
       fetchNextPage();
@@ -30,11 +26,8 @@ const GameList = ({ selectedGenre, selectedGenreName }) => {
   
   return (
     <div className="p-4">
-      <div className="pl-4 pt-4"> 
-      <FaArrowLeft onClick={()=> navigate(-1)} className="text-lg dark:text-white" />
-    </div>
     <div className="ml-6">
-      <h2 className="text-3xl font-bold ml-1 p-3 mb-3 dark:text-white">{gameHeaderByGenreName} Games</h2>
+      <h2 className="text-3xl font-bold ml-1 p-3 mb-3 dark:text-white">All Games</h2>
       <div className="grid gap-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {data.pages.map((page, pageIndex) => (
           <React.Fragment key={pageIndex}>
@@ -68,4 +61,4 @@ const GameList = ({ selectedGenre, selectedGenreName }) => {
   );
 }
 
-export default GameList;
+export default AllGameList;

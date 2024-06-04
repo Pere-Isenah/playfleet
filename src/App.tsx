@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import './App.css'
 import Header from "./Components/Header.tsx"
-import Home from "./Pages/Home.tsx"
+
 import { GameProvider } from "./Context/GameContext"
 import { ThemeContext } from './Context/ThemeContext'
 import ErrorBoundary from "./Components/ErrorBoundary.tsx"
@@ -31,7 +31,7 @@ function App() {
           <ErrorBoundary>
             <ClerkProvider publishableKey={PUBLISHABLE_KEY} appearance={{ baseTheme: dark }}>
               <Header />
-              {match && <Home />}
+              
               <Outlet />
             </ClerkProvider>
           </ErrorBoundary>

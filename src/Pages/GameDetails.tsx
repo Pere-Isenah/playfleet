@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData,useNavigate } from "react-router-dom";
 import { getGameDetails} from "../Services/GlobalApi";
 import Screenshots from "../Components/Screenshots"
 import { FaArrowLeft } from "react-icons/fa";
@@ -13,6 +13,8 @@ export async function loader({ params }) {
 }
   
 const GameDetails = () => {
+ const navigate = useNavigate()
+  
   // Retrieve game details from loader data
   const { game } = useLoaderData();
   const  [reveal,setReveal] = useState("line-clamp-6");
@@ -29,9 +31,7 @@ const GameDetails = () => {
   return (
     <div className="h-screen">
     <div className="pl-4 pt-4"> 
-    <Link to={"/"}>
-      <FaArrowLeft className="text-lg dark:text-white" />
-      </Link>
+      <FaArrowLeft onClick={()=> navigate(-1)} className="text-lg dark:text-white" />
     </div>
     <div className="grid grid-cols-2 dark:text-white p-3 gap-1.5">
       <div className="grid col-span-1 pl-3" key={game.id}>

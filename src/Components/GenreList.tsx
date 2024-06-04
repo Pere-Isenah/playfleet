@@ -3,6 +3,7 @@ import {getGenreList} from "../Services/GlobalApi";
 import { GameContext } from "../Context/GameContext"; 
 import { useQuery } from 'react-query';
 import GenreSkeleton from "../Skeleton/GenreSkeleton";
+import { useNavigate } from "react-router-dom";
 
 const GenreList = () => {
   const {
@@ -11,7 +12,7 @@ const GenreList = () => {
     setGameHeaderByGenreName,
     setGenreId,
   } = useContext(GameContext); 
-
+const navigate= useNavigate()
   const [active, setActive] = useState();
   
   const {isLoading: isLoadingGenreList, data: genreList, isError: isErrorGenreList} =useQuery("genreList", getGenreList, {
@@ -33,7 +34,7 @@ if (isLoadingGenreList) {
       <h1 className='text-2xl font-bold mb-4  border-b-2 border-slate-300 dark:text-white border-b-2 border-slate-200'>Genre</h1>
       <div>
         {genreList.map((item, index) => (
-          <div key={index} className={`flex gap-2 items-center rounded-xl p-2 mb-4  text-black dark:text-white hover:scale-110 transition-all duration-300 cursor-pointer ${active === index ? "bg-slate-300 dark:bg-gray-700" : null}`} onClick={() => { setActive(index); setGenreId(item.id); setGameHeaderByGenreName(item.name); }}>
+          <div key={index} className={`flex gap-2 items-center rounded-xl p-2 mb-4  text-black dark:text-white hover:scale-110 transition-all duration-300 cursor-pointer ${active === index ? "bg-slate-300 dark:bg-gray-700" : null}`} onClick={() => { setActive(index); setGenreId(item.id); setGameHeaderByGenreName(item.name);navigate(`/genre/${item.id}`) }}>
             <img className="h-20 w-20 object-cover rounded-xl" src={item.image_background} alt={item.name} />
             <div className="flex items-center">
               <h2 className="font-bold text-lg sm:text-base">{item.name}</h2>

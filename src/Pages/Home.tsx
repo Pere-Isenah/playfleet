@@ -13,11 +13,13 @@ import { useGamesByGenreId } from "../Services/GlobalApi";
 import Search from "../Components/Search";
 import FilterByPlatform from "../Components/FilterByPlatform";
 import PlatFormGames from "../Components/PlatFormGames";
+import AllGameList from "../Components/AllGameList";
 
 function Home() {
   const { genreId } = useContext(GameContext);
   const gamesByGenreId = useGamesByGenreId({ genreId: genreId });
   const isPlatformRoute = useMatch("/platform/:platformId");
+  const isGenreRoute = useMatch("/genre/:genreId"); // Assuming genre route is like '/genre/:genreId'
 
   return (
     <div className="grid grid-cols-4 px-2 py-3">
@@ -39,6 +41,8 @@ function Home() {
         <Search />
         {isPlatformRoute ? (
           <PlatFormGames />
+        ) : isGenreRoute ? (
+          <GameList />
         ) : (
           <>
             <GameBanner />
@@ -48,7 +52,7 @@ function Home() {
             ) : gamesByGenreId.isError ? (
               "Error fetching games by genre ID"
             ) : (
-              <GameList />
+              <AllGameList />
             )}
           </>
         )}

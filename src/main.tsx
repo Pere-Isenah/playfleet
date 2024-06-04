@@ -11,6 +11,7 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import ErrorPage from './Components/ErrorPage';
 import GameDetails, { loader as gameDetailLoader } from './Pages/GameDetails';
 import Home from './Pages/Home';
+import PlatFormGames from "./Components/PlatFormGames";
 
 const queryClient = new QueryClient();
 
@@ -31,7 +32,11 @@ const router = createBrowserRouter([
       },
       {
         path: 'platform/:platformId',
-        element: <Home />, // Render Home and let Home handle the conditional rendering
+        element: <Home/>, // Render Home and let Home handle the conditional rendering
+      },
+      {
+        path: 'genre/:genreId',
+        element: <Home/>, // Render Home and let Home handle the conditional rendering
       },
     ],
   },
