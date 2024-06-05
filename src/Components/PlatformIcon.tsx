@@ -45,8 +45,7 @@ const PlatformIcon = ({ platforms }: Props) => {
         </div>
       ))}
     </div>
-  );
-};
+  )
+}
 
-export default PlatformIcon;
-
+export default PlatformIcon
