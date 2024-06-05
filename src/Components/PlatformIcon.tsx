@@ -10,7 +10,7 @@ import { BsNintendoSwitch, BsGlobe } from "react-icons/bs";
 import { MdPhoneIphone } from "react-icons/md";
 import { IoLogoAndroid } from "react-icons/io";
 
-const IconList = {
+const iconList = {
   pc: FaWindows,
   playstation: FaPlaystation,
   xbox: FaXbox,
@@ -22,14 +22,15 @@ const IconList = {
   web: BsGlobe,
 };
 
-export type IconListKeys = keyof typeof IconList;
+export type IconListKeys = keyof typeof iconList;
 
 interface Props {
   platform: IconListKeys;
 }
 const renderIcon = (slug: IconListKeys) => {
-  const Icon = IconList[slug];
-  return <Icon />;
+  const icon = iconList[slug];
+
+  return icon ? React.createElement(icon) : null;
 };
 
 const PlatformIcon = ({ platform }: Props) => {
