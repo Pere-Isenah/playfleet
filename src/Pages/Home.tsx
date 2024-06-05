@@ -16,8 +16,7 @@ import PlatFormGames from "../Components/PlatFormGames";
 import AllGameList from "../Components/AllGameList";
 
 function Home() {
-  const { genreId } = useContext(GameContext);
-  const gamesByGenreId = useGamesByGenreId({ genreId: genreId });
+  
   const isPlatformRoute = useMatch("/platform/:platformId");
   const isGenreRoute = useMatch("/genre/:genreId"); // Assuming genre route is like '/genre/:genreId'
 
@@ -28,13 +27,13 @@ function Home() {
       </div>
 
       <div className="col-span-4 md:col-span-3">
-        <div>
+        <div className="flex space-x-[50%] sticky top-[75px] z-30 bg-white dark:bg-[#121212] md:space-x-[66%] ">
           <FilterByPlatform />
-          <div className="flex justify-end gap-2 pr-3">
+          <div className="flex justify-self-end gap-2 pr-3">
             <SignedIn>
               <UserButton />
             </SignedIn>
-            <SignInButton className="bg-slate-500 p-1 px-2 dark:text-white rounded-lg" />
+            <SignInButton />
             <FaCartPlus className="text-2xl dark:text-white" />
           </div>
         </div>
@@ -47,13 +46,7 @@ function Home() {
           <>
             <GameBanner />
             <PopularGame />
-            {gamesByGenreId.isLoading ? (
-              <GameListSkeleton />
-            ) : gamesByGenreId.isError ? (
-              "Error fetching games by genre ID"
-            ) : (
-              <AllGameList />
-            )}
+            <AllGameList />
           </>
         )}
       </div>

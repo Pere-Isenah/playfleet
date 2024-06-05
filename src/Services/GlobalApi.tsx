@@ -16,25 +16,25 @@ export const getGenreList = async () => {
   try {
     const response = await axiosInstance.get("/genres");
     return response.data.results;
-  } catch (error) {
+  } catch (error: any) { // Specify 'any' type for the error
     throw new Error(`Error fetching genre list: ${error.message}`);
   }
 };
 
-export const getGameList = async ({ pageParam }) => {
+export const getGameList = async () => {
   try {
     const response = await axiosInstance.get("/games", {
       params: {
-        page: pageParam,
         page_size: 40,
       },
     });
     console.log("api:", response.data);
-    return response.data.results; // This should be returned here
-  } catch (error) {
+    return response.data.results;
+  } catch (error: any) { // Specify 'any' type for the error
     throw new Error(`Error fetching game list: ${error.message}`);
   }
 };
+
 export const useGameList = () => {
   return useInfiniteQuery(
     ["games"],
@@ -106,7 +106,7 @@ export const useGamesByGenreId = ({ genreId }: { genreId: number | undefined }) 
   });
 };
 
-export const useGameSearch = ({ search }) => {
+export const useGameSearch = ({ search }: { search: string }) => {
   const searchParams = search ? `&search=${search}` : '';
   return useInfiniteQuery(["gamesBySearch", search], ({ pageParam = 1 }) => {
     return axios.get(`https://rawg.io/api/search?${searchParams}`, {
@@ -136,7 +136,9 @@ export const useGameSearch = ({ search }) => {
       console.log("Search Data fetched successfully:", data);
     },
   });
-};export const getGameDetails = (id) => {
+};
+
+export const getGameDetails = (id: number) => {
   // Ensure queryParams is a number
   const queryParams: number = id;
 
@@ -145,13 +147,13 @@ export const useGameSearch = ({ search }) => {
       console.log("Game details fetched successfully:", res.data);
       return res.data; // Return only the data here
     })
-    .catch((error) => {
+    .catch((error: any) => { // Specify 'any' type for the error
       console.error("Error fetching game details:", error);
       throw error; // Throw the error to handle it in the component
     });
 };
 
-export const useScreenshot = ({gameId}) => {
+export const useScreenshot = ({ gameId }: { gameId: number }) => {
   const gameParams = gameId;
 
   return useQuery(["Screenshots", gameParams], () => {
@@ -161,7 +163,7 @@ export const useScreenshot = ({gameId}) => {
     });
   }, {
     onSuccess: (data) => {
-      console.log("ss Successful:",data)
+      console.log("ss Successful:", data)
       // Handle success here, if needed
     },
     onError: (error) => {
@@ -171,7 +173,7 @@ export const useScreenshot = ({gameId}) => {
   });
 };
 
-export const useFilterByPLatForm = ({ platformId }: { platformId: number | undefined }) => {
+export const useFilterByPlatform = ({ platformId }: { platformId: number | undefined }) => {
   const queryParams = platformId ? "parent_platforms=" + platformId : "";
   return useInfiniteQuery(["gamesByPlatform", platformId], ({ pageParam = 1 }) => {
     return axiosInstance.get(`/games?${queryParams}`, {

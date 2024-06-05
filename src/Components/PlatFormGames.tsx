@@ -1,18 +1,19 @@
-import React, { useEffect,useContext } from 'react';
-import { BrowserRouter as Router, Route, Switch, Link, useParams } from 'react-router-dom';
+import React, { useEffect, useContext } from 'react';
+import { Link, useParams } from 'react-router-dom'; // Removed BrowserRouter and Switch
 import { useInView } from 'react-intersection-observer';
-import { useFilterByPLatForm } from "../Services/GlobalApi";
+import { useFilterByPlatform } from "../Services/GlobalApi";
 import { ImSpinner4 } from "react-icons/im";
 import PlatformIcon from "./PlatformIcon";
 import { FaArrowLeft } from "react-icons/fa";
 import { GameContext } from "../Context/GameContext"; 
 
 const PlatFormGames = () => {
-  const { ref, inView } = useInView(); // Always call this hook
-  const { platformId } = useParams();
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useFilterByPLatForm({platformId: platformId});
+  const { ref, inView } = useInView();
+  const { platformId } = useParams<{ platformId: string }>(); // Adjusted type
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useFilterByPlatform({ platformId: parseInt(platformId || '') });
   
-  const {platformTitle} = useContext(GameContext)
+  // Optional chaining to access platformTitle safely
+  const platformTitle = useContext(GameContext)?.platformTitle;
 
   useEffect(() => {
     if (inView && hasNextPage) {
@@ -21,17 +22,19 @@ const PlatFormGames = () => {
   }, [fetchNextPage, inView, hasNextPage]);
 
   if (!data || !data.pages || !data.pages.length) {
-    return null; // or you can return a loading indicator or any placeholder
+    return null;
   }
 
   return (
     <div className="p-4">
+      <div className="sticky top-[110px] bg-white dark:bg-[#121212]">
       <div className="pl-4 pt-4"> 
-    <Link to={"/"}>
-      <FaArrowLeft className="text-lg dark:text-white" />
-      </Link>
+        <Link to={"/"}>
+          <FaArrowLeft className="text-lg dark:text-white" />
+        </Link>
       </div>
       <h2 className="text-3xl font-bold p-3 mb-3 dark:text-white">{platformTitle} Games</h2>
+      </div>
       <div className="grid gap-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {data.pages.map((page, pageIndex) => (
           <React.Fragment key={pageIndex}>

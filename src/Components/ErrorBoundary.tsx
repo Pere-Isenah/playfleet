@@ -1,12 +1,16 @@
-import React, { Component } from 'react';
+import React, { Component, ReactNode } from 'react';
 
-class ErrorBoundary extends Component {
-  constructor(props) {
+interface ErrorBoundaryState {
+  hasError: boolean;
+}
+
+class ErrorBoundary extends Component<{}, ErrorBoundaryState> {
+  constructor(props: {}) {
     super(props);
     this.state = { hasError: false };
   }
 
-  componentDidCatch(error, errorInfo) {
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     // Update state to indicate that an error has occurred
     this.setState({ hasError: true });
     // You can also log the error to an error reporting service

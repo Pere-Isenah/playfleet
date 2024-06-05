@@ -21,6 +21,7 @@ function App() {
   const match = useMatch("/");
 
   useEffect(() => {
+    // @ts-ignore
     setTheme(localStorage.getItem('theme') ? localStorage.getItem('theme') : 'dark')
   }, [])
 
@@ -31,7 +32,6 @@ function App() {
           <ErrorBoundary>
             <ClerkProvider publishableKey={PUBLISHABLE_KEY} appearance={{ baseTheme: dark }}>
               <Header />
-              
               <Outlet />
             </ClerkProvider>
           </ErrorBoundary>
