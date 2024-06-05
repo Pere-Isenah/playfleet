@@ -10,7 +10,7 @@ import { FaArrowLeft } from "react-icons/fa";
 const GameList = () => {
   const { gameHeaderByGenreName } = useContext(GameContext) || {}; // Provide default values
   const { genre, genreId } = useParams();
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useGamesByGenreId({ genreId: genreId });
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useGamesByGenreId({ genreId: parseInt(genreId) });
   const navigate = useNavigate();
   const { ref, inView } = useInView();
 

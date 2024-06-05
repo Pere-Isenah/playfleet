@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 const MobileNavBar = ({ className }) => {
   const [nav, setNav] = useState(false);
-  const [active, setActive] = useState();
+  const [active, setActive] = useState(0);
   const navigate = useNavigate();
   const {
     setGenreList,

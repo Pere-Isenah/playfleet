@@ -31,7 +31,7 @@ function FilterByPlatform() {
     <div className="">
       <div className='text-xs dark:text-white'>Filter Platform: </div>
       <select
-        label="filter"
+        aria-label="filter"
         className="rounded-md border border-black dark:border-white dark:bg-black dark:text-white"
         onChange={handlePlatformChange}
         defaultValue="" // to make sure the default option is selected initially
