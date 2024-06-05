@@ -22,31 +22,24 @@ const IconList = {
   web: BsGlobe,
 };
 
-type IconListKeys = keyof typeof IconList;
-
-interface Platform {
-  slug: IconListKeys;
-}
+export type IconListKeys = keyof typeof IconList;
 
 interface Props {
-  platforms: Platform[];
+  platform: IconListKeys;
 }
 const renderIcon = (slug: IconListKeys) => {
   const Icon = IconList[slug];
   return <Icon />;
 };
 
-const PlatformIcon = ({ platforms }: Props) => {
+const PlatformIcon = ({ platform }: Props) => {
   return (
     <div>
-      {platforms.map((platform) => (
-        <div className="text-xl dark:text-white" key={platform.slug}>
-          {renderIcon(platform.slug)}
-        </div>
-      ))}
+      <div className="text-xl dark:text-white" key={platform}>
+        {renderIcon(platform)}
+      </div>
     </div>
   );
 };
 
 export default PlatformIcon;
-
