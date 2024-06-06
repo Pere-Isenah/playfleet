@@ -5,12 +5,12 @@ import ScreenshotSkeleton from "../Skeleton/ScreenshotSkeleton"
 const Screenshots = ({ gameId }) => {
   const { data: screenshots, isLoading, isError } = useScreenshot({ gameId });
 
-  if (isLoading) {
+  if (isLoading || !screenshots) {
     return <ScreenshotSkeleton />
   }
 
   if (isError) {
-    return <div>Error fetching screenshots</div>; // Render an error message if there's an error
+    return <div className="dark:text-white">Error fetching screenshots</div>; // Render an error message if there's an error
   }
 
   return (

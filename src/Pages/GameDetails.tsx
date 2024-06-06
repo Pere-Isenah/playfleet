@@ -4,6 +4,7 @@ import { getGameDetails } from '../Services/GlobalApi';
 import Screenshots from '../Components/Screenshots';
 import { FaArrowLeft } from 'react-icons/fa';
 import {Game} from "../Components/games-interface"
+import ScreenshotSkeleton from "../Skeleton/ScreenshotSkeleton"
 
  
 
@@ -22,6 +23,9 @@ const GameDetails: React.FC = () => {
   const [reveal, setReveal] = useState('line-clamp-6');
   const [btnName, setBtnName] = useState('Read More');
   const [btncolor, setBtncolor] = useState('bg-blue-400');
+  if(Screenshots.isLoading){
+    return <ScreenshotSkeleton />
+  }
 
   const handleReveal = () => {
     reveal
