@@ -14,7 +14,7 @@ const Screenshots = ({ gameId }) => {
   }
 
   return (
-    <div className="grid grid-cols-2 gap-1.5">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-1.5">
       {screenshots.map((screenshot, index) => ( index <4 &&(
         <div key={screenshot.id}>
           <img src={screenshot.image} alt={`Screenshot ${index + 1}`} />
