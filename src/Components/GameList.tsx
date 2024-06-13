@@ -4,14 +4,14 @@ import { useInView } from 'react-intersection-observer';
 import { useGamesByGenreId } from "../Services/GlobalApi";
 import { GameContext } from "../Context/GameContext";
 import { ImSpinner4 } from "react-icons/im";
-import PlatformIcon from "./PlatformIcon";
-import { FaArrowLeft } from "react-icons/fa"
-import GameListSkeleton from "../Skeleton/GameListSkeleton";
+import PlatformIcon, { IconListKeys } from "./PlatformIcon";
+import { FaArrowLeft } from "react-icons/fa";
+import  GameListSkeleton from "../Skeleton/GameListSkeleton"
 
 const GameList = () => {
   const { gameHeaderByGenreName } = useContext(GameContext) || {}; // Provide default values
   const { genre, genreId } = useParams();
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useGamesByGenreId({ genreId: genreId });
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useGamesByGenreId({ genreId: parseInt(genreId) });
   const navigate = useNavigate();
   const { ref, inView } = useInView();
 
@@ -22,7 +22,7 @@ const GameList = () => {
   }, [fetchNextPage, inView, hasNextPage]);
 
   if (!data || !data.pages || !data.pages.length) {
-    return <GameListSkeleton /> // or you can return a loading indicator or any placeholder
+    return <GameListSkeleton/>; // or you can return a loading indicator or any placeholder
   }
 
   return (
@@ -41,9 +41,9 @@ const GameList = () => {
                 <div className="bg-slate-300 p-3 pb-24 h-full rounded-lg hover:scale-110 transition-all duration-300 cursor-pointer dark:bg-gray-700">
                   <img className="w-full h-4/5 rounded-xl object-cover" src={item.background_image} alt={item.name} width={1080} />
                   <div className="flex gap-1 p-2 mt-2">
-                    {item.parent_platforms.map((icon, index) => (
-                      <PlatformIcon platforms={[icon.platform]} key={index} />
-                    ))}
+                  {item.parent_platforms.map((icon) => (
+                    <PlatformIcon platform={icon.platform.slug as IconListKeys} />
+                  ))}
                   </div>
                   <h2 className="text-[20px] dark:text-white font-bold p-2">{item.name}<span className='p-1 rounded-sm ml-2 text-[10px] bg-green-100 text-green-700 font-medium'>{item.metacritic}</span></h2>
                   <h2 className='text-gray-500 p-1'>⭐{item.rating} 💬{item.reviews_count} 🔥{item.suggestions_count}</h2>

@@ -16,6 +16,8 @@ interface GameContextType {
   setSearchInput: React.Dispatch<React.SetStateAction<string>>;
   platformTitle: string;
   setPlatformTitle: React.Dispatch<React.SetStateAction<string>>;
+  mobileNav: boolean;
+  setMobileNav: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const GameContext = createContext<GameContextType | undefined>(undefined);
@@ -28,6 +30,7 @@ export const GameProvider = ({ children }: { children: React.ReactNode }) => {
   const [genreId, setGenreId] = useState<string>("");
   const [searchInput, setSearchInput] = useState("");
   const [platformTitle, setPlatformTitle] = useState("");
+  const [mobileNav, setMobileNav] = useState(true);
 
   return (
     <GameContext.Provider value={{
@@ -45,6 +48,8 @@ export const GameProvider = ({ children }: { children: React.ReactNode }) => {
       setSearchInput,
       platformTitle,
       setPlatformTitle,
+      mobileNav,
+      setMobileNav,
     }}>
       {children}
     </GameContext.Provider>
