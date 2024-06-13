@@ -3,6 +3,9 @@
 ## Overview
 Welcome to Playfleet! Playfleet is a web application designed to provide users with information about video games, including details about specific games, such as descriptions, ratings, platforms, release dates, and more.
 
+[Live Demo ](https://playfleet.netlify.app/)
+
+
 ## Features
 - **Game Details**: View detailed information about individual games, including their name, description, rating, platforms, release date, and more.
 - **Screenshots**: Browse screenshots of games to get a visual sense of their graphics and gameplay.
@@ -16,9 +19,7 @@ Welcome to Playfleet! Playfleet is a web application designed to provide users w
   - React Router: A library for client-side routing and navigation.
   - Tailwind CSS: A utility-first CSS framework for styling the application.
 
-- **Backend**:
-  - Node.js: A JavaScript runtime for building server-side applications.
-  - Express.js: A web application framework for Node.js, used for handling HTTP requests.
+
   
 ## Getting Started
 1. Clone the repository to your local machine.
@@ -77,9 +78,3 @@ Welcome to Playfleet! Playfleet is a web application designed to provide users w
 
 ## Contribution
 Contributions to Playfleet are welcome! If you find any issues or have suggestions for improvements, feel free to open an issue or submit a pull request.
-
-## License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
----
-Feel free to customize the ReadMe and API documentation based on your project's specific requirements and implementation details!
